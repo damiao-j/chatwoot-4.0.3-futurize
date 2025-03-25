@@ -1,45 +1,46 @@
-import accountRoutes from './dashboard/account';
-import agentBotRoutes from './dashboard/agentBots';
-import authRoutes from './auth';
-import campaignRoutes from './dashboard/campaigns';
-import cannedResponseRoutes from './dashboard/cannedResponse';
-import contactRoutes from './dashboard/contacts';
-import conversationRoutes from './dashboard/conversation';
-import csatRoutes from './dashboard/csat';
-import customViewRoutes from './dashboard/customView';
-import dashboardApps from './dashboard/dashboardApps';
-import helpCenterRoutes from './dashboard/helpCenter';
-import inboxRoutes from './dashboard/inbox';
-import integrationRoutes from './dashboard/integrations';
-import notificationRoutes from './dashboard/notifications';
-import profileRoutes from './dashboard/profile';
-import reportRoutes from './dashboard/reports';
-import searchRoutes from './dashboard/search';
-import settingsRoutes from './dashboard/settings';
-import teamRoutes from './dashboard/team';
-import whatsappRoutes from './dashboard/whatsapp';
-import kanbanRoutes from './dashboard/routes/kanban';
+import { createRouter, createWebHistory } from 'vue-router';
 
-export default [
-  ...authRoutes,
-  ...dashboardApps,
-  ...accountRoutes,
-  ...agentBotRoutes,
-  ...campaignRoutes,
-  ...cannedResponseRoutes,
-  ...contactRoutes,
-  ...conversationRoutes,
-  ...csatRoutes,
-  ...customViewRoutes,
-  ...helpCenterRoutes,
-  ...inboxRoutes,
-  ...integrationRoutes,
-  ...notificationRoutes,
-  ...profileRoutes,
-  ...reportRoutes,
-  ...searchRoutes,
-  ...settingsRoutes,
-  ...teamRoutes,
-  ...whatsappRoutes,
-  ...kanbanRoutes,
-];
+import { frontendURL } from '../helper/URLHelper';
+import dashboard from './dashboard/dashboard.routes';
+import store from 'dashboard/store';
+import { validateLoggedInRoutes } from '../helper/routeHelpers';
+import AnalyticsHelper from '../helper/AnalyticsHelper';
+import { buildPermissionsFromRouter } from '../helper/permissionsHelper';
+
+const routes = [...dashboard.routes];
+
+export const router = createRouter({ history: createWebHistory(), routes });
+export const routesWithPermissions = buildPermissionsFromRouter(routes);
+
+export const validateAuthenticateRoutePermission = (to, next) => {
+  const { isLoggedIn, getCurrentUser: user } = store.getters;
+
+  if (!isLoggedIn) {
+    window.location.assign('/app/login');
+    return '';
+  }
+
+  if (!to.name) {
+    return next(frontendURL(`accounts/${user.account_id}/dashboard`));
+  }
+
+  const nextRoute = validateLoggedInRoutes(to, store.getters.getCurrentUser);
+  return nextRoute ? next(frontendURL(nextRoute)) : next();
+};
+
+export const initalizeRouter = () => {
+  const userAuthentication = store.dispatch('setUser');
+
+  router.beforeEach((to, _from, next) => {
+    AnalyticsHelper.page(to.name || '', {
+      path: to.path,
+      name: to.name,
+    });
+
+    userAuthentication.then(() => {
+      return validateAuthenticateRoutePermission(to, next, store);
+    });
+  });
+};
+
+export default router;

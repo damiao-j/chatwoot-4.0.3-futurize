@@ -11,6 +11,21 @@ import { routes as captainRoutes } from './captain/captain.routes';
 import AppContainer from './Dashboard.vue';
 import Suspended from './suspended/Index.vue';
 
+// Rotas extras do Arquivo 2
+import accountRoutes from './dashboard/account';
+import agentBotRoutes from './dashboard/agentBots';
+import authRoutes from './auth';
+import cannedResponseRoutes from './dashboard/cannedResponse';
+import csatRoutes from './dashboard/csat';
+import customViewRoutes from './dashboard/customView';
+import dashboardApps from './dashboard/dashboardApps';
+import integrationRoutes from './dashboard/integrations';
+import profileRoutes from './dashboard/profile';
+import reportRoutes from './dashboard/reports';
+import teamRoutes from './dashboard/team';
+import whatsappRoutes from './dashboard/whatsapp';
+import kanbanRoutes from './dashboard/kanban';
+
 export default {
   routes: [
     {
@@ -26,6 +41,18 @@ export default {
         ...notificationRoutes,
         ...helpcenterRoutes.routes,
         ...campaignsRoutes.routes,
+        ...accountRoutes,
+        ...agentBotRoutes,
+        ...cannedResponseRoutes,
+        ...csatRoutes,
+        ...customViewRoutes,
+        ...dashboardApps,
+        ...integrationRoutes,
+        ...profileRoutes,
+        ...reportRoutes,
+        ...teamRoutes,
+        ...whatsappRoutes,
+        ...kanbanRoutes,
       ],
     },
     {
@@ -36,5 +63,6 @@ export default {
       },
       component: Suspended,
     },
+    ...authRoutes, // Rotas de autenticação fora do AppContainer
   ],
 };
