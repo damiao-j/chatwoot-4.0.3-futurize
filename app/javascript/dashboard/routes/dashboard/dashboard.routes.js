@@ -12,20 +12,20 @@ import AppContainer from './Dashboard.vue';
 import Suspended from './suspended/Index.vue';
 
 // Rotas extras do Arquivo 2
-import accountRoutes from './dashboard/account';
-import agentBotRoutes from './dashboard/agentBots';
-import authRoutes from './auth';
-import cannedResponseRoutes from './dashboard/cannedResponse';
-import csatRoutes from './dashboard/csat';
-import customViewRoutes from './dashboard/customView';
-import dashboardApps from './dashboard/dashboardApps';
-import integrationRoutes from './dashboard/integrations';
-import profileRoutes from './dashboard/profile';
-import reportRoutes from './dashboard/reports';
-import teamRoutes from './dashboard/team';
-import whatsappRoutes from './dashboard/whatsapp';
-import kanbanRoutes from './dashboard/kanban';
-import helpChatRoutes from './help-chat';
+import accountRoutes from './account';
+import agentBotRoutes from './agentBots';
+import authRoutes from './auth'; // Este já parece estar correto
+import cannedResponseRoutes from './cannedResponse';
+import csatRoutes from './csat';
+import customViewRoutes from './customView';
+import dashboardApps from './dashboardApps';
+import integrationRoutes from './integrations';
+import profileRoutes from './profile';
+import reportRoutes from './reports';
+import teamRoutes from './team';
+import whatsappRoutes from './whatsapp';
+import kanbanRoutes from './kanban';
+import helpChatRoutes from '../help-chat';
 
 export default {
   routes: [
