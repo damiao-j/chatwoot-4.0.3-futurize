@@ -17,5 +17,5 @@ jobs:
 
       - name: Construir e enviar a imagem
         run: |
-          docker build -t seu-usuario/chatwoot-4.0.3-futurize:latest .
-          docker push seu-usuario/chatwoot-4.0.3-futurize:latest
+          docker build -t damiao-j/chatwoot-4.0.3-futurize:latest .
+          docker push damiao-j/chatwoot-4.0.3-futurize:latest
