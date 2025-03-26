@@ -12,7 +12,6 @@ import AppContainer from './Dashboard.vue';
 import Suspended from './suspended/Index.vue';
 
 // Rotas extras do Arquivo 2
-import accountRoutes from './account';
 import agentBotRoutes from './agentBots';
 import authRoutes from './auth'; // Este já parece estar correto
 import cannedResponseRoutes from './cannedResponse';
