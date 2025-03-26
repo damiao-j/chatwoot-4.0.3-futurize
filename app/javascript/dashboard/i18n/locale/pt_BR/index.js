@@ -36,11 +36,15 @@ import sla from './sla.json';
 import teamsSettings from './teamsSettings.json';
 import whatsappTemplates from './whatsappTemplates.json';
 import webphone from './webphone.json';
+import kanban from './kanban.json';
+import aiAgent from './ai-agent.json';
+import help-chat from './ai-agent.json';
 
 export default {
   ...advancedFilters,
   ...agentBots,
   ...agentMgmt,
+  ...aiAgent,
   ...attributesMgmt,
   ...auditLogs,
   ...automation,
@@ -63,6 +67,7 @@ export default {
   ...inboxMgmt,
   ...integrationApps,
   ...integrations,
+  ...kanban
   ...labelsMgmt,
   ...login,
   ...macros,
@@ -77,13 +82,3 @@ export default {
   ...whatsappTemplates,
   ...webphone,
 };
-
-import kanban from './kanban';
-
-import layoutCustomization from './layout-customization';
-
-import contactCustomization from './contact-customization';
-
-import aiAgent from './ai-agent';
-
-import './help-chat';
