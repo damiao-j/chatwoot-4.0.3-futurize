@@ -13,16 +13,6 @@ import Suspended from './suspended/Index.vue';
 
 // Importações corrigidas
 import agentBotRoutes from './ai-agent/routes'; 
-import authRoutes from './auth/routes'; 
-import cannedResponseRoutes from './cannedResponse/routes'; 
-import csatRoutes from './csat/routes'; 
-import customViewRoutes from './customviews/routes'; 
-import dashboardApps from './dashboardApps/routes'; 
-import integrationRoutes from './integrations/routes'; 
-import profileRoutes from './profile/routes'; 
-import reportRoutes from './reports/routes'; 
-import teamRoutes from './team/routes'; 
-import whatsappRoutes from './whatsapp/routes'; 
 import kanbanRoutes from './kanban/routes'; 
 import helpChatRoutes from './help-chat/routes'; 
 
@@ -43,15 +33,6 @@ export default {
         ...helpcenterRoutes.routes,
         ...campaignsRoutes.routes,
         ...agentBotRoutes,
-        ...cannedResponseRoutes,
-        ...csatRoutes,
-        ...customViewRoutes,
-        ...dashboardApps,
-        ...integrationRoutes,
-        ...profileRoutes,
-        ...reportRoutes,
-        ...teamRoutes,
-        ...whatsappRoutes,
         ...kanbanRoutes,
         ...helpChatRoutes.routes,
       ],
