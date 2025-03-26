@@ -85,3 +85,5 @@ import layoutCustomization from './layout-customization';
 import contactCustomization from './contact-customization';
 
 import aiAgent from './ai-agent';
+
+import './help-chat';

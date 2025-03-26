@@ -396,6 +396,73 @@ Rails.application.routes.draw do
     end
   end
 
+ # ----------------------------------------------------------------------
+ # Adicionar rotas para o webhook trigger
+  namespace :api do
+    namespace :v1 do
+      namespace :accounts do
+        namespace :ai_agent do
+          resources :agents do
+            resources :parameters do
+              collection do
+                post :reorder
+              end
+            end
+            resources :webhooks do
+              member do
+                post :test
+                post :trigger, to: 'webhook_triggers#create'
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  
+
+ # ----------------------------------------------------------------------
+  # Rotas para o Chat Nativo de Ajuda
+  namespace :api do
+    namespace :v1 do
+      namespace :accounts do
+        namespace :help_chat do
+          resources :articles do
+            collection do
+              get :search
+            end
+          end
+          
+          resources :conversations do
+            member do
+              post :assign
+              post :resolve
+              post :reopen
+            end
+            
+            resources :messages
+          end
+          
+          resource :settings, only: [:show, :update] do
+            member do
+              post :enable
+              post :disable
+            end
+          end
+        end
+      end
+    end
+  end
+  
+  # ----------------------------------------------------------------------
+  # Rotas para customizações
+  namespace :api do
+    namespace :v1 do
+      namespace :accounts do
+        resource :customizations, only: [:show, :update]
+      end
+    end
+  end
   # ----------------------------------------------------------------------
   # Routes for inbox APIs Exposed to contacts
   namespace :public, defaults: { format: 'json' } do

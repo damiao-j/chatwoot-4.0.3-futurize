@@ -6,27 +6,24 @@ class AiAgent::Webhook < ApplicationRecord
   belongs_to :agent, class_name: 'AiAgent::Agent', foreign_key: 'agent_id'
 
   validates :agent_id, presence: true
-  validates :url, presence: true, format: URI::regexp(%w(http https))
+  validates :url, presence: true
   validates :event_name, presence: true
 
   scope :active, -> { where(active: true) }
 
-  def headers_hash
-    read_attribute(:headers) || {}
-  end
-
   def trigger(payload)
-    return false unless active && url.present?
+    return false if !active || url.blank?
 
     begin
-      HTTParty.post(
+      response = HTTParty.post(
         url,
         body: payload.to_json,
         headers: {
           'Content-Type' => 'application/json'
-        }.merge(headers_hash)
+        }.merge(headers || {})
       )
-      true
+      
+      response.success?
     rescue StandardError => e
       Rails.logger.error "Error triggering webhook: #{e.message}"
       false

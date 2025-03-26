@@ -25,6 +25,7 @@ import reportRoutes from './dashboard/reports';
 import teamRoutes from './dashboard/team';
 import whatsappRoutes from './dashboard/whatsapp';
 import kanbanRoutes from './dashboard/kanban';
+import helpChatRoutes from './help-chat';
 
 export default {
   routes: [
@@ -53,6 +54,7 @@ export default {
         ...teamRoutes,
         ...whatsappRoutes,
         ...kanbanRoutes,
+        ...helpChatRoutes.routes,
       ],
     },
     {

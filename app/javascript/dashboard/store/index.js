@@ -25,11 +25,13 @@ import conversationStats from './modules/conversationStats';
 import conversationTypingStatus from './modules/conversationTypingStatus';
 import conversationWatchers from './modules/conversationWatchers';
 import csat from './modules/csat';
+import customizationsModule from './modules/customizations';
 import customRole from './modules/customRole';
 import customViews from './modules/customViews';
 import dashboardApps from './modules/dashboardApps';
 import draftMessages from './modules/draftMessages';
 import globalConfig from 'shared/store/globalConfig';
+import helpChatModule from './modules/help-chat';
 import inboxAssignableAgents from './modules/inboxAssignableAgents';
 import inboxes from './modules/inboxes';
 import inboxMembers from './modules/inboxMembers';
@@ -81,11 +83,13 @@ export default createStore({
     conversationTypingStatus,
     conversationWatchers,
     csat,
+    customizationsModule,
     customRole,
     customViews,
     dashboardApps,
     draftMessages,
     globalConfig,
+    helpChatModule,
     inboxAssignableAgents,
     inboxes,
     inboxMembers,

@@ -1,24 +1,34 @@
-import AiAgentList from './pages/AiAgentList';
-import AiAgentDetails from './pages/AiAgentDetails';
-import AiAgentCreate from './pages/AiAgentCreate';
+import AgentList from './pages/AgentList';
+import AgentCreate from './pages/AgentCreate';
+import AgentEdit from './pages/AgentEdit';
+import AgentSettings from './pages/AgentSettings';
+import { frontendURL } from '../../helper/URLHelper';
 
-export default [
-  {
-    path: 'ai-agents',
-    name: 'ai_agents',
-    roles: ['administrator'],
-    component: AiAgentList,
-  },
-  {
-    path: 'ai-agents/new',
-    name: 'ai_agent_create',
-    roles: ['administrator'],
-    component: AiAgentCreate,
-  },
-  {
-    path: 'ai-agents/:agentId',
-    name: 'ai_agent_details',
-    roles: ['administrator'],
-    component: AiAgentDetails,
-  },
-];
+export default {
+  routes: [
+    {
+      path: frontendURL('accounts/:accountId/ai-agents'),
+      name: 'ai_agents',
+      roles: ['administrator', 'agent'],
+      component: AgentList,
+    },
+    {
+      path: frontendURL('accounts/:accountId/ai-agents/new'),
+      name: 'ai_agent_create',
+      roles: ['administrator'],
+      component: AgentCreate,
+    },
+    {
+      path: frontendURL('accounts/:accountId/ai-agents/:agentId/edit'),
+      name: 'ai_agent_edit',
+      roles: ['administrator'],
+      component: AgentEdit,
+    },
+    {
+      path: frontendURL('accounts/:accountId/ai-agents/:agentId/settings'),
+      name: 'ai_agent_settings',
+      roles: ['administrator'],
+      component: AgentSettings,
+    },
+  ],
+};
