@@ -48,9 +48,3 @@ export const initalizeRouter = () => {
 };
 
 export default router;
-export default [
-  ...dashboardRoutes,
-  ...kanbanRoutes,
-  ...layoutCustomizationRoutes,
-  ...aiAgentRoutes
-];
