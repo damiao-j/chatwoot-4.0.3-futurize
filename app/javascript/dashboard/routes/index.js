@@ -6,10 +6,10 @@ import store from 'dashboard/store';
 import { validateLoggedInRoutes } from '../helper/routeHelpers';
 import AnalyticsHelper from '../helper/AnalyticsHelper';
 import { buildPermissionsFromRouter } from '../helper/permissionsHelper';
-import aiAgentRoutes from '../ai-agent';
+import aiAgentRoutes from './ai-agent';
 import dashboardRoutes from './dashboard/dashboard.routes';
-import kanbanRoutes from '../kanban';
-import layoutCustomizationRoutes from '../layout-customization';
+import kanbanRoutes from './kanban';
+import layoutCustomizationRoutes from './layout-customization';
 
 const routes = [...dashboard.routes];
 
