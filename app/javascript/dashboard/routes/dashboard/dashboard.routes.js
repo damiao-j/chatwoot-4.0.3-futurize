@@ -11,20 +11,21 @@ import { routes as captainRoutes } from './captain/captain.routes';
 import AppContainer from './Dashboard.vue';
 import Suspended from './suspended/Index.vue';
 
-// Rotas extras do Arquivo 2
-import agentBotRoutes from './agentBots';
-import authRoutes from './auth'; // Este já parece estar correto
-import cannedResponseRoutes from './cannedResponse';
-import csatRoutes from './csat';
-import customViewRoutes from './customView';
-import dashboardApps from './dashboardApps';
-import integrationRoutes from './integrations';
-import profileRoutes from './profile';
-import reportRoutes from './reports';
-import teamRoutes from './team';
-import whatsappRoutes from './whatsapp';
-import kanbanRoutes from './kanban';
-import helpChatRoutes from '../help-chat';
+// Importações corrigidas
+import agentBotRoutes from './ai-agent/routes'; 
+import authRoutes from './auth/routes'; 
+import cannedResponseRoutes from './cannedResponse/routes'; 
+import csatRoutes from './csat/routes'; 
+import customViewRoutes from './customviews/routes'; 
+import dashboardApps from './dashboardApps/routes'; 
+import integrationRoutes from './integrations/routes'; 
+import profileRoutes from './profile/routes'; 
+import reportRoutes from './reports/routes'; 
+import teamRoutes from './team/routes'; 
+import whatsappRoutes from './whatsapp/routes'; 
+import kanbanRoutes from './kanban/routes'; 
+import helpChatRoutes from './help-chat/routes'; 
+
 
 export default {
   routes: [
@@ -41,7 +42,6 @@ export default {
         ...notificationRoutes,
         ...helpcenterRoutes.routes,
         ...campaignsRoutes.routes,
-        ...accountRoutes,
         ...agentBotRoutes,
         ...cannedResponseRoutes,
         ...csatRoutes,
