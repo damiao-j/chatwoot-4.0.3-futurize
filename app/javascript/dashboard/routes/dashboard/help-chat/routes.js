@@ -1,7 +1,7 @@
 import HelpChatArticles from './pages/HelpChatArticles.vue';
 import HelpChatConversations from './pages/HelpChatConversations.vue';
 import HelpChatSettings from './pages/HelpChatSettings.vue';
-import { frontendURL } from '../../helper/URLHelper';
+import { frontendURL } from '../../../helper/URLHelper';
 
 export default {
   routes: [
