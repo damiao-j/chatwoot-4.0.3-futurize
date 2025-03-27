@@ -425,4 +425,135 @@ export default {
     cardSubmitButtonLabel() {
       return this.isEditCardMode
         ? this.$t('SAVE')
-        : this.$t('CRE<response clipped><NOTE>To save on context only part of this file has been shown to you. You should retry this tool after you have searched inside the file with `grep -n` in order to find the line numbers of what you are looking for.</NOTE>
+        : this.$t('CREATE');
+    }
+},
+    methods: {
+       formatDate(date) {
+        if (!date) return '';
+        return new Date(date).toLocaleDateString();
+    },
+    formatCurrency(value) {
+      if (!value) return '';
+      return new Intl.NumberFormat('en-US', { 
+        style: 'currency', 
+        currency: 'USD' 
+      }).format(value);
+    },
+    getValueColorClass(value) {
+      if (!value) return '';
+      if (value > 0) return 'text-green-600';
+      if (value < 0) return 'text-red-600';
+      return 'text-slate-500';
+    },
+    goBack() {
+      this.$router.push('/boards');
+    },
+    toggleFilterPanel() {
+      // Implement filter panel toggle logic
+      this.$emit('toggle-filter');
+    },
+    openAddColumnModal() {
+      this.selectedColumn = null;
+      this.columnForm = {
+        name: '',
+        description: '',
+        color: '#3498DB',
+      };
+      this.showColumnModal = true;
+    },
+    openEditColumnModal(column) {
+      this.selectedColumn = column;
+      this.columnForm = { ...column };
+      this.showColumnModal = true;
+    },
+    submitColumnForm() {
+      if (this.isEditColumnMode) {
+        this.$store.dispatch('kanban/updateColumn', {
+          boardId: this.boardId,
+          columnId: this.selectedColumn.id,
+          columnData: this.columnForm
+        });
+      } else {
+        this.$store.dispatch('kanban/createColumn', {
+          boardId: this.boardId,
+          columnData: this.columnForm
+        });
+      }
+      this.showColumnModal = false;
+    },
+    confirmDeleteColumn(column) {
+      this.selectedColumn = column;
+      this.showDeleteColumnConfirmation = true;
+    },
+    deleteColumn() {
+      this.$store.dispatch('kanban/deleteColumn', {
+        boardId: this.boardId,
+        columnId: this.selectedColumn.id
+      });
+      this.showDeleteColumnConfirmation = false;
+    },
+    openAddCardModal(columnId = null) {
+      this.selectedCard = null;
+      this.cardForm = {
+        title: '',
+        description: '',
+        column_id: columnId,
+        contact_id: null,
+        conversation_id: null,
+        value: null,
+        due_date: null,
+      };
+      this.showCardModal = true;
+    },
+    openEditCardModal(card) {
+      this.selectedCard = card;
+      this.cardForm = { ...card };
+      this.showCardModal = true;
+    },
+    submitCardForm() {
+      if (this.isEditCardMode) {
+        this.$store.dispatch('kanban/updateCard', {
+          boardId: this.boardId,
+          cardId: this.selectedCard.id,
+          cardData: this.cardForm
+        });
+      } else {
+        this.$store.dispatch('kanban/createCard', {
+          boardId: this.boardId,
+          cardData: this.cardForm
+        });
+      }
+      this.showCardModal = false;
+    },
+    openCardDetails(card) {
+      this.$emit('open-card-details', card);
+    },
+    handleCardDragChange(event, columnId) {
+      if (event.added) {
+        // Card moved to a new column
+        this.$store.dispatch('kanban/moveCard', {
+          boardId: this.boardId,
+          cardId: event.added.element.id,
+          newColumnId: columnId
+        });
+      }
+    },
+    confirmDeleteCard(card) {
+      this.selectedCard = card;
+      this.showDeleteCardConfirmation = true;
+    },
+    deleteCard() {
+      this.$store.dispatch('kanban/deleteCard', {
+        boardId: this.boardId,
+        cardId: this.selectedCard.id
+      });
+      this.showDeleteCardConfirmation = false;
+    }
+  },
+  created() {
+    // Fetch board and columns when component is created
+    this.$store.dispatch('kanban/fetchBoard', this.boardId);
+  }
+}
+</script>
