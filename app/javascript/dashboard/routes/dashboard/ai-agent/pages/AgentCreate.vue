@@ -26,8 +26,8 @@
                 v-model="agentForm.name"
                 :label="$t('AI_AGENT.FORM.NAME.LABEL')"
                 :placeholder="$t('AI_AGENT.FORM.NAME.PLACEHOLDER')"
-                :error="$v.agentForm.name.$error ? $t('AI_AGENT.FORM.NAME.ERROR') : ''"
-                @blur="$v.agentForm.name.$touch"
+                :error="v$.agentForm.name.$error ? $t('AI_AGENT.FORM.NAME.ERROR') : ''"
+                @blur="v$.agentForm.name.$touch"
                 required
               />
             </div>
@@ -39,8 +39,8 @@
                 v-model="agentForm.description"
                 :label="$t('AI_AGENT.FORM.DESCRIPTION.LABEL')"
                 :placeholder="$t('AI_AGENT.FORM.DESCRIPTION.PLACEHOLDER')"
-                :error="$v.agentForm.description.$error ? $t('AI_AGENT.FORM.DESCRIPTION.ERROR') : ''"
-                @blur="$v.agentForm.description.$touch"
+                :error="v$.agentForm.description.$error ? $t('AI_AGENT.FORM.DESCRIPTION.ERROR') : ''"
+                @blur="v$.agentForm.description.$touch"
                 required
                 multiline
                 :rows="4"
@@ -69,7 +69,7 @@
             <div class="small-12 columns">
               <woot-button
                 :is-loading="uiFlags.isCreatingAgent"
-                :disabled="$v.agentForm.$invalid"
+                :disabled="v$.$invalid"
                 color-scheme="success"
                 type="submit"
               >
@@ -84,11 +84,15 @@
 </template>
 
 <script>
-import { required } from '@vuelidate/lib/validators';
+import { useVuelidate } from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'AgentCreate',
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
       agentForm: {
@@ -99,11 +103,13 @@ export default {
       },
     };
   },
-  validations: {
-    agentForm: {
-      name: { required },
-      description: { required },
-    },
+  validations() {
+    return {
+      agentForm: {
+        name: { required },
+        description: { required },
+      },
+    };
   },
   computed: {
     ...mapGetters({
@@ -115,8 +121,8 @@ export default {
       this.$router.push({ name: 'ai_agents' });
     },
     async createAgent() {
-      this.$v.agentForm.$touch();
-      if (this.$v.agentForm.$invalid) {
+      this.v$.$touch();
+      if (this.v$.$invalid) {
         return;
       }
 
