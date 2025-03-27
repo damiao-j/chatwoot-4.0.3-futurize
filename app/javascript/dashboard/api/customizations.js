@@ -1,4 +1,4 @@
-import apiClient from '../api_client';
+import apiClient from './apiClient';
 
 const CustomizationsAPI = {
   // Obter todas as customizações da conta atual

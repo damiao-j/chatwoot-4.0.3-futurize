@@ -1,4 +1,4 @@
-import apiClient from '../api_client';
+import apiClient from './ApiClient';
 
 const ContactCustomizationAPI = {
   getFields() {
