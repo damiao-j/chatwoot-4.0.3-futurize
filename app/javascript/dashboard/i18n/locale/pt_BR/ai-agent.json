@@ -1,4 +1,3 @@
-export default {
   AI_AGENT: {
     HEADER: 'Agentes de IA',
     DESCRIPTION: 'Crie e gerencie agentes de IA para automatizar tarefas',
@@ -118,4 +117,3 @@ export default {
       TEST_ERROR: 'Erro ao testar webhook'
     }
   }
-}
