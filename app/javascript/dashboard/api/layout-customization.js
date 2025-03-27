@@ -1,4 +1,4 @@
-import apiClient from './ApiClient';
+import apiClient from './ApiClient.js';
 
 const LayoutCustomizationAPI = {
   getThemes() {
