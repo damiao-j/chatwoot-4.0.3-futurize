@@ -38,7 +38,6 @@ import whatsappTemplates from './whatsappTemplates.json';
 import webphone from './webphone.json';
 import kanban from './kanban.json';
 import aiAgent from './ai-agent.json';
-import helpChat from './help-chat.js';
 
 export default {
   ...advancedFilters,
@@ -68,7 +67,6 @@ export default {
   ...integrationApps,
   ...integrations,
   ...kanban,
-  ...helpChat,
   ...labelsMgmt,
   ...login,
   ...macros,
