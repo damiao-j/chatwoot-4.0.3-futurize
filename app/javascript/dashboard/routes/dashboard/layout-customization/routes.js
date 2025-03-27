@@ -1,5 +1,5 @@
-import LayoutThemes from './pages/LayoutThemes';
-import LayoutThemeEditor from './pages/LayoutThemeEditor';
+import LayoutThemes from './pages/LayoutThemes.vue';
+import LayoutThemeEditor from './pages/LayoutThemeEditor.vue';
 
 export default [
   {

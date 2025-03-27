@@ -1,5 +1,5 @@
-import ContactFieldsManager from './pages/ContactFieldsManager';
-import ContactFieldEditor from './pages/ContactFieldEditor';
+import ContactFieldsManager from './pages/ContactFieldsManager.vue';
+import ContactFieldEditor from './pages/ContactFieldEditor.vue';
 
 export default [
   {

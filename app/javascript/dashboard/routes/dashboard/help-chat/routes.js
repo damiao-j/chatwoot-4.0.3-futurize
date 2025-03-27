@@ -1,6 +1,6 @@
-import HelpChatArticles from './pages/HelpChatArticles';
-import HelpChatConversations from './pages/HelpChatConversations';
-import HelpChatSettings from './pages/HelpChatSettings';
+import HelpChatArticles from './pages/HelpChatArticles.vue';
+import HelpChatConversations from './pages/HelpChatConversations.vue';
+import HelpChatSettings from './pages/HelpChatSettings.vue';
 import { frontendURL } from '../../helper/URLHelper';
 
 export default {

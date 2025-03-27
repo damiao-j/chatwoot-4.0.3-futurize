@@ -1,7 +1,7 @@
-import AgentList from './pages/AgentList';
-import AgentCreate from './pages/AgentCreate';
-import AgentEdit from './pages/AgentEdit';
-import AgentSettings from './pages/AgentSettings';
+import AgentList from './pages/AgentList.vue';
+import AgentCreate from './pages/AgentCreate.vue';
+import AgentEdit from './pages/AgentEdit.vue';
+import AgentSettings from './pages/AgentSettings.vue';
 import { frontendURL } from '../../helper/URLHelper';
 
 export default {
