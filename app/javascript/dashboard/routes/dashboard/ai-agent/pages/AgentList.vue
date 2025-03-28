@@ -106,7 +106,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { formatUnixDate } from '../../../helper/DateHelper';
+import { formatUnixDate } from '../../../../../shared/helpers/DateHelper';
 
 export default {
   name: 'AgentList',
