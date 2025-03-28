@@ -1,7 +1,5 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
+// Vue 3 não usa mais importação padrão e Vue.use global
+// Os componentes serão registrados no arquivo que importa este módulo
 
 const ContactSearchDropdown = {
   name: 'ContactSearchDropdown',
@@ -241,5 +239,5 @@ const ConversationSearchDropdown = {
   `,
 };
 
-Vue.component('contact-search-dropdown', ContactSearchDropdown);
-Vue.component('conversation-search-dropdown', ConversationSearchDropdown);
+// Exportando os componentes para serem registrados no arquivo que os importa
+export { ContactSearchDropdown, ConversationSearchDropdown };

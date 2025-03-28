@@ -1,9 +1,9 @@
 // Arquivo para aplicar customizações dinamicamente no frontend
-import Vue from 'vue';
+// Atualizado para Vue 3
 
 const CustomizationManager = {
-  install(Vue) {
-    Vue.prototype.$applyCustomizations = function() {
+  install(app) {
+    app.config.globalProperties.$applyCustomizations = function() {
       // Verificar se existem customizações disponíveis
       if (!window.gon || !window.gon.customizations) {
         return;
@@ -37,7 +37,7 @@ const CustomizationManager = {
       }
     };
     
-    Vue.prototype.applyLayoutCustomizations = function(layoutCustomizations) {
+    app.config.globalProperties.applyLayoutCustomizations = function(layoutCustomizations) {
       // Aplicar logo
       if (layoutCustomizations.logo_url) {
         const logoElements = document.querySelectorAll('.logo');
@@ -82,7 +82,7 @@ const CustomizationManager = {
       }
     };
     
-    Vue.prototype.adjustColor = function(color, amount) {
+    app.config.globalProperties.adjustColor = function(color, amount) {
       // Função para ajustar a cor (escurecer ou clarear)
       let usePound = false;
       
