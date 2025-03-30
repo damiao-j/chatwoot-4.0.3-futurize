@@ -1,4 +1,4 @@
-FROM ruby:3.2.2-alpine
+FROM ruby:3.3.3-alpine
 
 # Configurar variáveis de ambiente
 ENV RAILS_ROOT /app
@@ -24,6 +24,12 @@ RUN apk add --update --no-cache \
     libpng-dev \
     libwebp-dev \
     libheif-dev
+
+# Atualizar o browserslist e instalar dependências
+RUN npx update-browserslist-db@latest && \
+    yarn add sass@latest && \
+    yarn add @vuelidate/core@latest @vuelidate/validators@latest
+
 
 # Criar diretório da aplicação
 WORKDIR $RAILS_ROOT
