@@ -25,11 +25,6 @@ RUN apk add --update --no-cache \
     libwebp-dev \
     libheif-dev
 
-# Atualizar o browserslist e instalar dependências
-RUN npx update-browserslist-db@latest && \
-    yarn add sass@latest && \
-    yarn add @vuelidate/core@latest @vuelidate/validators@latest
-
 
 # Criar diretório da aplicação
 WORKDIR $RAILS_ROOT
@@ -41,7 +36,15 @@ RUN bundle config set without 'development test' && \
 
 # Copiar package.json e instalar dependências
 COPY package.json yarn.lock ./
+
+# Atualizar o browserslist e instalar dependências
+RUN npx update-browserslist-db@latest && \
+    yarn add sass@latest && \
+    yarn add @vuelidate/core@latest @vuelidate/validators@latest
+
+# Instalar dependências
 RUN yarn install --frozen-lockfile
+
 
 # Copiar o restante da aplicação
 COPY . .
