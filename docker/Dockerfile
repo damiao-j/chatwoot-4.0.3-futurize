@@ -7,14 +7,13 @@ ENV NODE_ENV production
 ENV BUNDLE_PATH /usr/local/bundle
 ENV PATH /app/bin:${PATH}
 
-# Instalar dependências
+# Instalar dependências (Node.js 20+ já inclui Corepack)
 RUN apk add --update --no-cache \
     build-base \
     postgresql-dev \
     tzdata \
-    nodejs \
+    nodejs-current \
     npm \
-    yarn \
     git \
     imagemagick \
     curl \
@@ -25,9 +24,9 @@ RUN apk add --update --no-cache \
     libwebp-dev \
     libheif-dev
 
-# Habilitar corepack para gerenciamento correto do Yarn
-RUN corepack enable && \
-    corepack prepare yarn@stable --activate
+# Configurar Yarn através do npm (sem Corepack)
+RUN npm install -g yarn@latest && \
+    yarn set version stable
 
 # Criar diretório da aplicação
 WORKDIR $RAILS_ROOT
@@ -45,7 +44,6 @@ RUN yarn add sass@latest @vuelidate/core@latest @vuelidate/validators@latest && 
     yarn install --frozen-lockfile && \
     npx update-browserslist-db@latest
 
-
 # Copiar o restante da aplicação
 COPY . .
 
@@ -55,7 +53,7 @@ RUN RAILS_ENV=production \
     DATABASE_URL=postgres://postgres:postgres@postgres:5432/chatwoot_production \
     bundle exec rake assets:precompile
 
-# Limpar arquivos desnecessários para reduzir o tamanho da imagem
+# Limpar arquivos desnecessários
 RUN rm -rf node_modules tmp/cache vendor/bundle test spec
 
 # Expor a porta
