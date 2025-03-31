@@ -6,8 +6,9 @@ ENV RAILS_ENV production
 ENV NODE_ENV production
 ENV BUNDLE_PATH /usr/local/bundle
 ENV PATH /app/bin:${PATH}
+ENV VITE_RUBY_PACKAGE_MANAGER=yarn  # Forçar uso do Yarn
 
-# Instalar dependências (Node.js 20+ já inclui Corepack)
+# Instalar dependências
 RUN apk add --update --no-cache \
     build-base \
     postgresql-dev \
@@ -24,48 +25,41 @@ RUN apk add --update --no-cache \
     libwebp-dev \
     libheif-dev \
     gcompat \
-    libstdc++
+    libstdc++ \
+    musl-dev \
+    openssl-dev \
+    linux-headers \
+    xz
 
-
-# Configurar Yarn através do npm (sem Corepack)
-RUN npm install -g yarn@latest && \
+# Instalar gerenciadores de pacotes
+RUN npm install -g pnpm@10.2.0 yarn@latest && \
     yarn set version stable
 
-# Criar diretório da aplicação
 WORKDIR $RAILS_ROOT
 
-# Copiar Gemfile e instalar gems
+# Copiar e instalar gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle config set without 'development test' && \
     bundle install --jobs 20 --retry 5
 
-# Copiar package.json e lock files
+# Copiar e instalar dependências JS
 COPY package.json yarn.lock ./
-
-# Atualizar browserslist e instalar dependências
-RUN yarn add sass@latest @vuelidate/core@latest @vuelidate/validators@latest && \
-    yarn install --frozen-lockfile && \
+RUN yarn install --frozen-lockfile && \
     npx update-browserslist-db@latest
 
-# Copiar o restante da aplicação
+# Copiar aplicação
 COPY . .
 
-# Precompilar assets
+# Pré-compilar assets
 RUN RAILS_ENV=production \
     SECRET_KEY_BASE=precompile_placeholder \
     DATABASE_URL=postgres://postgres:postgres@postgres:5432/chatwoot_production \
     bundle exec rake assets:precompile
 
-# Limpar arquivos desnecessários
-RUN rm -rf node_modules tmp/cache vendor/bundle test spec
-
-# Expor a porta
-EXPOSE 3000
-
 # Configurar entrypoint
 COPY docker/entrypoints/rails.sh /usr/bin/
 RUN chmod +x /usr/bin/rails.sh
-ENTRYPOINT ["rails.sh"]
 
-# Comando padrão
+EXPOSE 3000
+ENTRYPOINT ["rails.sh"]
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
