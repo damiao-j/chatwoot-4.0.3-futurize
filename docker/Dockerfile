@@ -23,8 +23,8 @@ RUN apk add --update --no-cache \
     libpng-dev \
     libwebp-dev \
     libheif-dev \
-    gcompat \          # Compatibilidade com glibc
-    libstdc++          # Dependência para gems nativas
+    gcompat \
+    libstdc++
 
 
 # Configurar Yarn através do npm (sem Corepack)
