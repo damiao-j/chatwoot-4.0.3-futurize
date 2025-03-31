@@ -25,6 +25,9 @@ RUN apk add --update --no-cache \
     libwebp-dev \
     libheif-dev
 
+# Habilitar corepack para gerenciamento correto do Yarn
+RUN corepack enable && \
+    corepack prepare yarn@stable --activate
 
 # Criar diretório da aplicação
 WORKDIR $RAILS_ROOT
@@ -34,16 +37,13 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle config set without 'development test' && \
     bundle install --jobs 20 --retry 5
 
-# Copiar package.json e instalar dependências
+# Copiar package.json e lock files
 COPY package.json yarn.lock ./
 
-# Atualizar o browserslist e instalar dependências
-RUN npx update-browserslist-db@latest && \
-    yarn add sass@latest && \
-    yarn add @vuelidate/core@latest @vuelidate/validators@latest
-
-# Instalar dependências
-RUN yarn install --frozen-lockfile
+# Atualizar browserslist e instalar dependências
+RUN yarn add sass@latest @vuelidate/core@latest @vuelidate/validators@latest && \
+    yarn install --frozen-lockfile && \
+    npx update-browserslist-db@latest
 
 
 # Copiar o restante da aplicação
