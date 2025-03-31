@@ -22,7 +22,10 @@ RUN apk add --update --no-cache \
     libjpeg-turbo-dev \
     libpng-dev \
     libwebp-dev \
-    libheif-dev
+    libheif-dev \
+    gcompat \          # Compatibilidade com glibc
+    libstdc++          # Dependência para gems nativas
+
 
 # Configurar Yarn através do npm (sem Corepack)
 RUN npm install -g yarn@latest && \
