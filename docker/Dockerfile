@@ -6,7 +6,7 @@ ENV RAILS_ENV production
 ENV NODE_ENV production
 ENV BUNDLE_PATH /usr/local/bundle
 ENV PATH /app/bin:${PATH}
-ENV VITE_RUBY_PACKAGE_MANAGER=yarn  # Forçar uso do Yarn
+ENV VITE_RUBY_PACKAGE_MANAGER=yarn  
 
 # Instalar dependências
 RUN apk add --update --no-cache \
